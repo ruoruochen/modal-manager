@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# 弹窗优先级管理
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+在同一个页面，多个弹窗有可能同时出现，我们希望能控制弹窗显示的优先级，使其依次显示。
 
-## Available Scripts
+实现思路：通过发布、订阅模式来实现，根据优先级排序，先讲所有弹窗隐藏，再展示优先级最高的。
 
-In the project directory, you can run:
+由于多个页面需要进行单独的优先级管理，所以不适宜使用单例模式。
 
-### `npm start`
+## 例子
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+有三个弹窗：Modal1(红)、Modal2(黄)、Modal3(绿)，点击弹窗后，当前弹窗消失，如果有其他弹窗处于待展示状态，进行展示。
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+优先级量化分别为：4000、2000、3000，即当三个弹窗同时出现时，优先展示弹窗 1.
 
-### `npm test`
+```js
+export const modalLevel = {
+  modal1: 4000,
+  modal2: 2000,
+  modal3: 3000,
+};
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+实现效果：
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![example](https://ruoruochen-img-bed.oss-cn-beijing.aliyuncs.com/example.gif)

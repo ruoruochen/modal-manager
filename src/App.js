@@ -1,23 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import Modal1 from "./components/Modal1";
+import Modal2 from "./components/Modal2";
+import Modal3 from "./components/Modal3";
+import modalManager from "./utils/modal-manager";
 function App() {
+  const modalManagerIns = modalManager();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Modal1 modalManager={modalManagerIns} defaultValue={true} />
+      <Modal2 modalManager={modalManagerIns} defaultValue={true} />
+      <Modal3 modalManager={modalManagerIns} defaultValue={true} />
     </div>
   );
 }
